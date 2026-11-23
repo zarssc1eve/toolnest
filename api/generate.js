@@ -4,7 +4,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed.' });
   }
 
-  const apiKey = process.env.OPENAI_API_KEY;
+  const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) {
     return res.status(503).json({ error: 'Backend belum dikonfigurasi: tambahkan OPENAI_API_KEY di Vercel Environment Variables.' });
   }
@@ -18,8 +18,8 @@ export default async function handler(req, res) {
   }
 
   // Endpoint dan model hanya diatur di server, bukan oleh browser pengguna.
-  const baseUrl = (process.env.OPENAI_BASE_URL || 'https://api.openai.com/v1').replace(/\/$/, '');
-  const model = process.env.OPENAI_MODEL || 'gpt-4o-mini';
+  const baseUrl = (process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1').replace(/\/$/, '');
+  const model = process.env.OPENROUTER_MODEL || 'baidu/ernie-5.5-flash-preview:free';
 
   try {
     const upstream = await fetch(`${baseUrl}/chat/completions`, {
