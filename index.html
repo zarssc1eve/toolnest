@@ -317,6 +317,7 @@ body[data-theme=candy] .ic{border-radius:16px;background:linear-gradient(145deg,
 <div class="modal-backdrop" id="adminModal"><div class="modal" style="width:min(640px,100%)"><div class="modal-title"><h2>Admin · Akun VIP</h2><button class="icon-btn" id="closeAdmin">✕</button></div><div id="adminContent"></div></div></div>
 <div class="modal-backdrop" id="cmdModal"><div class="modal" style="padding:14px"><input class="field" id="cmdInput" placeholder="Ketik nama tool, tema, profil…" autocomplete="off" style="margin-top:0"><div id="cmdList" style="max-height:52vh;overflow:auto"></div><p class="notice" style="margin:8px 0 0">↑↓ pilih · Enter buka · Esc tutup</p></div></div>
 <div class="toast" id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onerror="(function(){var s=document.createElement('script');s.src='https://unpkg.com/@supabase/supabase-js@2';document.head.appendChild(s)})()"></script>
 <script>
 const $=id=>document.getElementById(id),E=id=>$('t-'+id),V=id=>E(id).value;
 // Supabase Auth adalah sumber identitas dan status membership.
