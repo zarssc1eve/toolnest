@@ -1,49 +1,51 @@
-TOOLNEST - PROFILE, USAGE LIMIT, VIP TOOLS & SCRIPT LIBRARY
+TOOLNEST — BUILD DENGAN SUPABASE
 
-FITUR BARU
-1. Usage limit harian:
-   - Guest / belum login: 10 kali membuka tools per hari.
-   - Akun FREE: 40 kali membuka tools per hari.
-   - Akun VIP: tanpa batas harian.
-   - Kuota dihitung di browser (LocalStorage) dan reset otomatis berdasarkan tanggal lokal perangkat.
-2. Profile customization:
-   - Nama tampilan, bio singkat, avatar emoji/karakter, dan warna avatar.
-3. VIP tools tambahan:
-   - SEO Meta Generator
-   - JSON Schema Generator
-   - UTM Link Builder
-   - SQL Query Builder
-   - Text Diff Pro
-4. Kategori Scripts:
-   - Scripts sekarang tampil sejajar dengan Utility, Finance, Developer, dan kategori utama lainnya.
-   - Klik Scripts untuk melihat kartu-kartu file yang tersedia; klik salah satu kartu lalu tekan Download Script.
-   - Kategori Script Download Library yang terpisah sudah dihapus.
+Isi ZIP:
+- index.html: tampilan dan tools Toolnest; login/profil terhubung ke Supabase.
+- api/generate.js: backend AI OpenRouter lama (dipertahankan).
+- api/config.js: mengirim URL + publishable key Supabase ke frontend.
+- api/admin-vip.js: API server untuk pengelolaan VIP khusus admin.
+- SUPABASE_MIGRATION.sql: perubahan struktur database yang perlu dijalankan.
 
-CARA MENAMBAHKAN SCRIPT DOWNLOAD
-1. Buka toolnest-backend/index.html.
-2. Cari teks: const DOWNLOAD_SCRIPTS=[
-3. Tepat di bawahnya, tambahkan item dengan format:
-   {
-     name: 'Login UI HTML',
-     category: 'HTML',
-     file: 'login-ui.html',
-     type: 'text/html;charset=utf-8',
-     vip: true,
-     content: `<!-- Tempel isi file HTML kamu di sini -->`
-   },
-4. Properti category menentukan label jenis script, misalnya 'HTML', 'CSS', 'JavaScript', 'Python', atau 'Lainnya'. Semua item akan muncul di kategori utama Scripts.
-5. Untuk file JavaScript gunakan type 'text/javascript;charset=utf-8'.
-   Untuk CSS gunakan 'text/css;charset=utf-8'.
-   Untuk TXT gunakan 'text/plain;charset=utf-8'.
-6. Jika vip:true, hanya akun VIP yang bisa melihat dan mengunduh file tersebut.
-   Jika vip:false, file bisa diunduh semua pengguna.
-7. Simpan index.html, commit ke GitHub, lalu deploy ulang di Vercel.
+LANGKAH SETUP
 
-CATATAN PENTING
-- Usage limit dan login saat ini masih berbasis LocalStorage/client-side. Ini berguna sebagai pembatas pemakaian normal, tetapi bukan proteksi anti-bypass. Untuk penegakan kuota yang aman lintas perangkat, pindahkan counter ke API/backend dan gunakan autentikasi server.
-- Status VIP yang ada tetap mengikuti sistem Toolnest sebelumnya. Jangan anggap LocalStorage sebagai sistem pembayaran atau autentikasi produksi.
-- Script yang kamu tambahkan akan menjadi konten HTML/JS di file situs. Jangan menaruh password, API key rahasia, token, atau data pribadi di dalam script yang bisa diunduh publik.
-- AI Text Generator / AI Chat with PDF tetap membutuhkan Environment Variable sesuai konfigurasi backend sebelumnya.
+1. Jalankan SQL
+   - Buka Supabase Dashboard > SQL Editor.
+   - Buka file SUPABASE_MIGRATION.sql, salin seluruh isinya, lalu Run.
 
-DEPLOY
-Upload isi folder toolnest-backend ke root repository GitHub, import repository ke Vercel, lalu deploy.
+2. Environment Variables di Vercel
+   - SUPABASE_URL = Project URL Supabase.
+   - SUPABASE_ANON_KEY = Publishable key (atau anon key lama). Jangan gunakan secret/service_role di sini.
+   - SUPABASE_SERVICE_ROLE_KEY = Secret/service_role key Supabase. Hanya untuk server Vercel, jangan masukkan ke HTML atau bagikan.
+   - OPENROUTER_API_KEY = API key OpenRouter yang sudah digunakan sebelumnya.
+   - OPENROUTER_MODEL = baidu/ernie-5.5-flash-preview:free (jika masih ingin memakai model sebelumnya).
+   Setelah menyimpan variabel, lakukan Redeploy di Vercel.
+
+3. URL Auth Supabase
+   - Authentication > URL Configuration.
+   - Site URL: https://toolnest-zrss.vercel.app
+   - Redirect URL tambahkan: https://toolnest-zrss.vercel.app/**
+
+4. Buat akun admin
+   - Buka website setelah deploy.
+   - Daftar akun menggunakan email milikmu dan verifikasi email jika diminta.
+   - Buka Supabase > SQL Editor, lalu jalankan (ganti email):
+     UPDATE public.profiles p
+     SET role = 'admin'
+     FROM auth.users u
+     WHERE p.id = u.id AND lower(u.email) = lower('EMAIL_ADMIN_KAMU');
+   - Keluar lalu masuk kembali. Tombol Admin akan muncul.
+
+5. Kelola VIP
+   - Login dengan akun admin, buka panel Admin.
+   - Masukkan email akun yang sudah terdaftar dan jumlah hari, lalu pilih Berikan VIP atau Cabut VIP.
+   - Masa VIP tersimpan di database dan tidak bisa diubah oleh akun biasa.
+
+CATATAN
+- Jangan pernah menaruh SUPABASE_SERVICE_ROLE_KEY di frontend, GitHub, atau file HTML.
+- Jangan bagikan API keys/password ke chat.
+- Akun lama yang dahulu tersimpan di LocalStorage tidak otomatis menjadi akun Supabase. Pengguna perlu daftar ulang.
+- Profil, nama, bio, avatar, status admin, dan VIP tersimpan di Supabase. Preferensi tampilan, favorit, dan riwayat tools tetap lokal.
+- Kuota penggunaan harian masih dihitung di browser (LocalStorage), sama seperti versi sebelumnya. Ini bukan batas anti-bypass.
+- Pendaftaran dapat meminta verifikasi email sesuai pengaturan Supabase.
+- Setelah file diunggah ke GitHub, Vercel perlu deploy ulang.
