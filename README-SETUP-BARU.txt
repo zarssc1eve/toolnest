@@ -34,3 +34,11 @@ PERBAIKAN PEMUATAN (PATCH)
 - Model diunduh terlebih dahulu dengan pengecekan HTTP dan batas waktu 60 detik.
 - Persiapan sesi model memiliki batas waktu 90 detik dan pesan error yang lebih jelas.
 - Ukuran input diturunkan menjadi 256 px pada HP dan 384 px pada komputer untuk mengurangi risiko browser kehabisan memori.
+
+
+AI HD Enhancer model selection:
+- Foto nyata: Real-ESRGAN x4plus (34 MB).
+- Ilustrasi/karakter game: Real-ESRGAN anime 6B (9 MB).
+- Both run locally in the browser; no AI API key is required.
+- Source image is limited to 1.2 megapixels for browser memory safety.
+- AI upscaling increases pixel dimensions and estimates details; it cannot recover text/details absent from a blurry screenshot.
