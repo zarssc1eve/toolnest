@@ -6,7 +6,7 @@ PERUBAHAN
 - Tidak membutuhkan REPLICATE_API_TOKEN atau API key AI lain.
 - Model ONNX (~4.9 MB) dan ONNX Runtime Web dimuat dari CDN saat pertama kali fitur digunakan. Koneksi internet tetap diperlukan untuk mengunduh runtime/model.
 - Output 4x menggunakan model Real-ESRGAN General x4. Pilihan 2x dibuat dengan downsampling hasil 4x.
-- Foto input dibatasi 15 MB dan diperkecil hingga sisi terpanjang 512 px agar lebih ramah perangkat, khususnya HP.
+- Foto input dibatasi 15 MB dan diperkecil hingga sisi terpanjang 256 px di HP atau 384 px di komputer agar lebih ramah perangkat, khususnya HP.
 - Fitur tetap ditandai VIP di antarmuka Toolnest. Karena pemrosesan berlangsung sepenuhnya di browser statis, kunci VIP ini adalah pembatasan antarmuka, bukan proteksi server-side yang tidak dapat dimodifikasi pengguna teknis.
 
 SETUP VERCEL / API KEY
@@ -19,7 +19,7 @@ SETUP VERCEL / API KEY
 
 CATATAN TEKNIS
 - Model: Real-ESRGAN General x4v3 ONNX dari openpixels-app/browser-models (lisensi model BSD-3-Clause).
-- Model dimuat dari Hugging Face dan runtime dari jsDelivr. Jika CDN tidak dapat diakses, fitur tidak dapat memuat model.
+- Model dimuat dari Hugging Face pada revisi tetap (pinned) dan runtime dari jsDelivr. Model diunduh dengan batas waktu 60 detik; sesi ONNX memakai WASM untuk kompatibilitas browser mobile. Jika CDN tidak dapat diakses, fitur tidak dapat memuat model.
 - Pemrosesan dilakukan pada CPU/WASM atau WebGPU jika didukung browser. Performa bergantung pada perangkat dan browser.
 - Model AI melakukan rekonstruksi detail yang tampak masuk akal; hasil bukan pemulihan detail asli yang pasti.
 - Face enhancement khusus tidak disediakan dalam versi browser ringan ini.
@@ -28,3 +28,9 @@ CATATAN TEKNIS
 
 Sumber model dan lisensi: https://huggingface.co/openpixels-app/browser-models
 Real-ESRGAN upstream: https://github.com/xinntao/Real-ESRGAN
+
+PERBAIKAN PEMUATAN (PATCH)
+- Memakai WASM secara langsung untuk menghindari pemilihan WebGPU yang tidak stabil pada sebagian browser Android.
+- Model diunduh terlebih dahulu dengan pengecekan HTTP dan batas waktu 60 detik.
+- Persiapan sesi model memiliki batas waktu 90 detik dan pesan error yang lebih jelas.
+- Ukuran input diturunkan menjadi 256 px pada HP dan 384 px pada komputer untuk mengurangi risiko browser kehabisan memori.
