@@ -1,23 +1,14 @@
-TOOLNEST AI UHD — BROWSER-BASED GRATIS
+TOOLNEST AI UHD INTEGRATED
 
-Perubahan:
-- Menghapus integrasi Hugging Face ZeroGPU/Gradio yang memerlukan Space khusus dan bisa memiliki antrean/kuota.
-- Mengganti kartu AI UHD menjadi pintasan ke Pixelvaerk, aplikasi open-source Swin2SR yang berjalan langsung di browser.
-- Tidak membutuhkan API key, token, server GPU, atau environment variable baru.
-- Gambar diproses di browser aplikasi tujuan; tidak dikirim ke backend Toolnest.
+Fitur AI UHD sekarang tertanam langsung di halaman Toolnest. Tidak ada Hugging Face Space, Gradio, backend GPU, atau API key yang perlu dibuat.
 
-Pemasangan:
+Cara pasang:
 1. Ganti index.html di repository Toolnest dengan file dari ZIP ini.
-2. Jangan hapus atau ubah file Supabase/API lainnya.
+2. Pertahankan api/admin-vip.js, api/config.js, api/generate.js dan package.json.
 3. Commit ke GitHub dan tunggu Vercel deploy.
-4. Login VIP, buka AI UHD Enhancer, lalu klik Buka AI UHD Gratis.
+4. Login VIP, buka kategori Image > AI UHD Enhancer (Gratis).
+5. Pilih gambar dan jalankan Tingkatkan ke UHD.
 
-Penting:
-- Ini membuka aplikasi Pixelvaerk di tab baru, bukan menanam mesin inferensi ke dalam halaman Toolnest.
-- Model diunduh pertama kali. Kecepatan bergantung pada browser, RAM, dan GPU perangkat. HP kelas bawah mungkin lambat atau tidak kuat memproses gambar besar.
-- Ini benar-benar tidak memakai API key dan tidak ada biaya per gambar dari Toolnest, tetapi bukan layanan cloud GPU gratis tanpa batas.
-- Pixelvaerk menyatakan memakai Swin2SR real-world x4 PSNR; 4x merupakan neural super-resolution. 2x/ukuran lain dapat melibatkan pengubahan ukuran dari hasil model.
-- Jangan mengunggah gambar pribadi/sensitif ke layanan pihak ketiga tanpa izin.
+Teknologi: Transformers.js 3.7.2 + Xenova Swin2SR Real-World x4 BSRGAN-PSNR (ONNX). Model diunduh dari Hugging Face saat pertama dipakai. Tidak ada API key dan gambar diproses di browser pengguna.
 
-Situs: https://cc-bit87.github.io/pixelvaerk-upscaler/
-Repositori dan lisensi: https://github.com/CC-bit87/pixelvaerk-upscaler (MIT).
+Catatan: model AI besar dan prosesnya berat. Perangkat Android kelas bawah dapat lambat atau kehabisan memori. Maksimal upload 12 MB. 4x adalah keluaran native model; 2x dibuat dari keluaran AI 4x yang diturunkan ukurannya. Ini super-resolution sungguhan, tetapi bukan jaminan kualitas setara layanan cloud komersial.
