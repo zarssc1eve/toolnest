@@ -1,0 +1,17 @@
+TOOLNEST 4.0 — CREATOR & DEVELOPER ECOSYSTEM
+
+Big update:
+- Studio Hub sebagai pusat akses modul produktivitas baru.
+- Project Vault: buat, lihat, hapus, dan ekspor metadata proyek dalam JSON.
+- Creator Studio: kanvas desain dasar berbasis teks/warna dan ekspor PNG.
+- Snippet Library: simpan, salin, unduh, dan hapus snippet kode.
+- AI Studio Prompt Lab: menyusun prompt terstruktur secara lokal.
+- AI Chat dan Community ditandai MAINTENANCE karena belum memiliki provider AI/backend sosial yang aktif.
+- Dashboard dan branding diperbarui ke Toolnest 4.0.
+- Semua fitur lokal menyimpan data di browser perangkat yang digunakan.
+
+Catatan:
+Project Vault, Snippet Library, dan Creator Studio belum tersinkron antar perangkat atau akun.
+Community publik, komentar, like, follow, cloud sync, dan AI Chat belum diimplementasikan.
+Status WORKING berarti fungsi lokal sudah diimplementasikan; tetap lakukan uji browser/perangkat sebelum produksi.
+API, Supabase functions, dan package.json dari arsip sebelumnya dipertahankan.
