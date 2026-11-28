@@ -1,0 +1,17 @@
+TOOLNEST 5.0
+
+FIXES
+- Fix tab Studio Hub yang terpotong/tersembunyi pada layar HP.
+- Fix area modal agar lebih nyaman digulir pada viewport mobile.
+- Tambah fallback migrasi data tn4_ ke tn5_ tanpa menghapus data lama.
+- Tambah validasi bentuk data saat membaca LocalStorage.
+- Fix notifikasi sukses palsu saat penulisan LocalStorage gagal.
+- Tambah import backup Project Vault dengan validasi format dan ukuran.
+- Perbarui status aksesibilitas tab saat tab diganti.
+
+DIPERTAHANKAN
+- Supabase auth dan API VIP yang sudah ada.
+- Seluruh tools, tema, kategori, dan file pendukung dari Toolnest 4.0.
+
+CATATAN
+Pemeriksaan sintaks lolos. Pengujian integrasi live pada Vercel/Supabase dan perangkat Android fisik belum dilakukan.
